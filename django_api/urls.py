@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from test_app.views import TestView #class based view 
+from test_app.views import TestView,TestGenricView,TestUpdateView #class based view 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', TestView.as_view()),#this is a class based view sp based on the type of request the corresponding handler method is called
     path('test/<int:id>', TestView.as_view()),
+    path('test-generic/', TestGenricView.as_view()),#this class is inherting from generics class based view
+    path('test-generic/<int:id>', TestUpdateView.as_view()),#this also inherits from generics class based view
 ]
