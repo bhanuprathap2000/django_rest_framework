@@ -14,7 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from django.conf import settings
 from test_app.views import TestView,TestGenricView,TestUpdateView #class based view 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,3 +24,9 @@ urlpatterns = [
     path('test-generic/', TestGenricView.as_view()),#this class is inherting from generics class based view
     path('test-generic/<int:id>', TestUpdateView.as_view()),#this also inherits from generics class based view
 ]
+#only for development purpose
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
